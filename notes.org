@@ -1,0 +1,105 @@
+* Code Olaf
+- Problem im Code: lange Typsysignaturen
+- "line item" = "Bestellposition"
+- Teilbestellung
+
+intersport:
+
+B2B, Händler kann ganze Regale bestellen
+
+aus Sicht des Händlers: eine Bestellung, wird nach FIliale, Lieferant
+aufgeteilt
+
+auußerdem: Liefertermin
+
+Konzerne mit mehreren Lieferanten
+
+Warenempfänger
+
+Split-Kriterium
+
+hat "Spriker" abgelöst
+
+"never-out-of-stock"
+
+* Gutscheine
+
+Manufactum:
+
+- Positionsrabatt
+- Rabatt auf ganzen Warenkorb
+- rückrechnen bei der Retourne
+
+Artur:
+
+Ein prozentualer Staffelgutschein, der nur auf bestimmte Produkte
+angewendet wird: Du hast im WK 10 Produkte, davon sind 4 in der
+Kategorie "Beauty". Die Gutscheinermässigung verteilst Du auf diese 4
+Produkte prozentual/proportional zum Preis des Artikels. Sollte ein
+Kunde einen anderen Positionsgutschein einsetzen, verbleibt der "aus
+Kundensicht bessere", der andere wird entfernt. Ich habe diese
+Variante vorläufig mit der Argumentation wegdiskutiert, kein Kunde
+versteht die Regel... Aber: die "absolute" Variante haben wir
+umgesetzt und ist live.
+
+... was bekommt man wieder bei Retour
+
+Gutschein Mindestbestellwert / Rücksendung sorgt dafür, daß er
+unterschritten wird
+
+Mengenrabatt: die günstigsten x umsonst
+
+Streckenartikel/Speditionslieferung - Manufactum - Bäume und Sträucher: wird von Gärtnerei
+abgewickelt + keine Postbox
+
+Douglas: Gutscheine für Hugo-Boss-Parfüms
+
+Gutscheine auf Order-Ebene
+
+nur 1 Gutschein zulässig
+
+2 für 1 + Custom-Bestellung
+
+Bianca ihre Erdnußsoße
+
+Denotational Design -> Gesamtbestellpreis, Erstattungsbetrag für
+Retoure
+
+
+Ideen:
+
+- REPL
+
+* Talk
+
+** Allgemeines zu Warenkorb
+** Tabellendenken
+
+Tabelle Lieferadressen
+
+| Wer    | Art | Packstations-Nummer | StraßeHausnummer | PLZ | Kommune |
+|--------+-----+---------------------+------------------+-----+---------|
+| Bianca |     |                     |                  |     |         |
+
+
+** Datenmodellierung
+
+#+begin_src haskell
+data Cart
+  = MkYellowCart [Article] (Maybe ShippingAddress)
+  | MkGreenCart (NonEmpty Article) ShippingAddress
+
+data Ort = Ort PLZ Kommune
+  
+data Lieferadresse
+  = Packstation Nummer Ort
+  | Straßenadresse StraßeHausnummer Ort
+#+end_src
+
+*** für jeden Datentype Beispiel
+
+** Ausführbare Spezifikation / Funktionen
+
+
+
+

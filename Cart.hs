@@ -1,5 +1,7 @@
 module Cart where
 
+import qualified Data.List.NonEmpty as NonEmpty
+
 -- Warenkorb hat:
 -- - Produkt
 -- - Lieferadresse
@@ -18,7 +20,8 @@ produktHinzufuegen Moebel (Warenkorb _ (Just adresse@(Packstation {}))) =
   FehlerhafterWarenkorb Moebel adresse KeineMoebelAnPackstation
 produktHinzufuegen Moebel (Warenkorb _ maybeAdresse) =
   Warenkorb (Just Moebel) maybeAdresse
-produktHinzufuegen Lifestyle (Warenkorb _ _) = undefined
+produktHinzufuegen Lifestyle (Warenkorb _ (Just adresse)) =
+  BestellbarerWarenkorb Lifestyle adresse
 produktHinzufuegen Moebel (FehlerhafterWarenkorb _ _ _) = undefined
 produktHinzufuegen Lifestyle (FehlerhafterWarenkorb _ _ _) = undefined
 produktHinzufuegen Moebel (BestellbarerWarenkorb _ _) = undefined
